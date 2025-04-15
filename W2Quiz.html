@@ -123,139 +123,136 @@ $(document).ready(function () {
 
 
 <ol style="list-style-type: decimal">
-<li>Suppose I define the following function in R</li>
+<li>Register an application with the Github API <a href="https://github.com/settings/applications">here</a>. Access the API to get information on your instructors repositories<br />
+(hint: this is the url you want <a href="https://api.github.com/users/jtleek/repos" class="uri">https://api.github.com/users/jtleek/repos</a>).<br />
+Use this data to find the time that the datasharing repo was created. What time was it created?<br />
+(Hint: <a href="https://github.com/hadley/httr/blob/master/demo/oauth2-github.r">This tutorial</a> may be useful. You may also need to run the code in the base R package and not R studio.)</li>
 </ol>
-<pre class="r"><code>cube &lt;- function(x, n){
-  x^3
-}</code></pre>
-<p>What is the result of running the following in R after defining this function?</p>
-<pre class="r"><code>cube(3)</code></pre>
-<pre><code>## [1] 27</code></pre>
+<pre class="r"><code>#create a new app with the Github development team - to get the client Id and token
+#https://github.com/settings/applications/670785
+#Fill out application name; url - github homepage
+clientId &lt;- '1c038dd7df6a509afe89'
+clientTkn &lt;- 'bd222cfcf1b956faa4cb24b0ab3b1589d84294f6'
+library(httr)
+myapp &lt;- oauth_app('github', key = clientId, secret = clientTkn)
+  #start application authentication process
+sig &lt;- sign_oauth1.0(myapp, token = clientId, token_secret = clientTkn)
+  #create a sign in credential
+Q1json &lt;- GET('https://api.github.com/users/jtleek/repos', sig)
+  #get the page (json data) that corresponds to the url with your sign in credentials
+json1 &lt;- content(Q1json) 
+  #extract the json file with the content
+  #this is usually hard to read
+library(jsonlite)
+Q1data &lt;- jsonlite::fromJSON(toJSON(json1)) 
+  #creates a dataframe from the json data - this is easier to read
+colnames(Q1data)</code></pre>
+<pre><code>##  [1] &quot;id&quot;                &quot;name&quot;              &quot;full_name&quot;        
+##  [4] &quot;owner&quot;             &quot;private&quot;           &quot;html_url&quot;         
+##  [7] &quot;description&quot;       &quot;fork&quot;              &quot;url&quot;              
+## [10] &quot;forks_url&quot;         &quot;keys_url&quot;          &quot;collaborators_url&quot;
+## [13] &quot;teams_url&quot;         &quot;hooks_url&quot;         &quot;issue_events_url&quot; 
+## [16] &quot;events_url&quot;        &quot;assignees_url&quot;     &quot;branches_url&quot;     
+## [19] &quot;tags_url&quot;          &quot;blobs_url&quot;         &quot;git_tags_url&quot;     
+## [22] &quot;git_refs_url&quot;      &quot;trees_url&quot;         &quot;statuses_url&quot;     
+## [25] &quot;languages_url&quot;     &quot;stargazers_url&quot;    &quot;contributors_url&quot; 
+## [28] &quot;subscribers_url&quot;   &quot;subscription_url&quot;  &quot;commits_url&quot;      
+## [31] &quot;git_commits_url&quot;   &quot;comments_url&quot;      &quot;issue_comment_url&quot;
+## [34] &quot;contents_url&quot;      &quot;compare_url&quot;       &quot;merges_url&quot;       
+## [37] &quot;archive_url&quot;       &quot;downloads_url&quot;     &quot;issues_url&quot;       
+## [40] &quot;pulls_url&quot;         &quot;milestones_url&quot;    &quot;notifications_url&quot;
+## [43] &quot;labels_url&quot;        &quot;releases_url&quot;      &quot;deployments_url&quot;  
+## [46] &quot;created_at&quot;        &quot;updated_at&quot;        &quot;pushed_at&quot;        
+## [49] &quot;git_url&quot;           &quot;ssh_url&quot;           &quot;clone_url&quot;        
+## [52] &quot;svn_url&quot;           &quot;homepage&quot;          &quot;size&quot;             
+## [55] &quot;stargazers_count&quot;  &quot;watchers_count&quot;    &quot;language&quot;         
+## [58] &quot;has_issues&quot;        &quot;has_projects&quot;      &quot;has_downloads&quot;    
+## [61] &quot;has_wiki&quot;          &quot;has_pages&quot;         &quot;forks_count&quot;      
+## [64] &quot;mirror_url&quot;        &quot;archived&quot;          &quot;open_issues_count&quot;
+## [67] &quot;license&quot;           &quot;forks&quot;             &quot;open_issues&quot;      
+## [70] &quot;watchers&quot;          &quot;default_branch&quot;</code></pre>
+<pre class="r"><code>Q1data[1:2, 1:3]</code></pre>
+<pre><code>##          id               name                 full_name
+## 1 101394164         advdatasci         jtleek/advdatasci
+## 2 111447948 advdatasci-project jtleek/advdatasci-project</code></pre>
+<pre class="r"><code>  #read the first couple of row/columns of the dataframe
+Q1data[Q1data$full_name == 'jtleek/datasharing', ]$created_at</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;2013-11-07T13:25:07Z&quot;</code></pre>
 <ul>
-<li>An error is returned becuase ‘n’ is not specified in the call to ‘cube’</li>
-<li><strong>The number 27 is returned</strong></li>
-<li>The users is prompted to specify the value of ‘n’.</li>
-<li>A warning is given with no value returned.</li>
+<li>2012-06-20T18:39:06Z</li>
+<li>2014-03-05T16:11:46Z</li>
+<li>2014-02-06T16:13:11Z</li>
+<li><strong>2013-11-07T13:25:07Z</strong></li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li>The following code will produce a warning in R. Why?</li>
+<li>The sqldf package allows for execution of SQL commands on R data frames. We will use the sqldf package to practice the queries we might send with the dbSendQuery command in RMySQL. Download the <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv">American Community Survey data</a> and load it into an R object called <code>acs</code>. Which of the following commands will select only the data for the probability weights pwgtp1 with ages less than 50?</li>
 </ol>
-<pre class="r"><code>x &lt;- 1:10
-if(x &gt; 5) {
-  x &lt;- 0
-}</code></pre>
-<pre><code>## Warning in if (x &gt; 5) {: the condition has length &gt; 1 and only the first
-## element will be used</code></pre>
+<pre class="r"><code>download.file(url = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv',
+              dest = paste0(getwd(), '/quiz2_data1.csv'),
+              method = 'curl', quiet = T)
+acs &lt;- read.csv('quiz2_data1.csv')
+library(sqldf)
+head(sqldf('select pwgtp1 from acs where AGEP &lt; 50'))</code></pre>
+<pre><code>##   pwgtp1
+## 1     87
+## 2     88
+## 3     94
+## 4     91
+## 5    539
+## 6    192</code></pre>
 <ul>
-<li>There are no elements in ‘x’ that are greater than 5</li>
-<li>The syntax of this R expression is incorrect.</li>
-<li>The expression uses curly braces.</li>
-<li>You cannot set ‘x’ to be 0 because ‘x’ is a vector and 0 is a scalar.</li>
-<li><strong>‘x’ is a vector of length 10 and ‘if’ can only test a single logical statement.</strong></li>
+<li>sqldf(“select * from acs where AGEP &lt; 50 and pwgtp1”)</li>
+<li>sqldf(“select pwgtp1 from acs”)</li>
+<li><strong>sqldf(“select pwgtp1 from acs where AGEP &lt; 50”)</strong></li>
+<li>sqldf(“select * from acs”)</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Consider the following function</li>
+<li>Using the same data frame you created in the previous problem, what is the equivalent function to unique(acs$AGEP)</li>
 </ol>
-<pre class="r"><code>f &lt;- function(x) {
-        g &lt;- function(y) {
-                y + z
-        }
-        z &lt;- 4
-        x + g(x)
-}</code></pre>
-<p>If I then run in R the following, what value is returned?</p>
-<pre class="r"><code>z &lt;- 10
-f(3)</code></pre>
-<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>head(sqldf(&quot;select distinct AGEP from acs&quot;))</code></pre>
+<pre><code>##   AGEP
+## 1   43
+## 2   42
+## 3   16
+## 4   14
+## 5   29
+## 6   40</code></pre>
 <ul>
-<li>16</li>
-<li><strong>10</strong></li>
-<li>7</li>
-<li>4</li>
+<li><strong>sqldf(“select distinct AGEP from acs”)</strong></li>
+<li>sqldf(“select distinct pwgtp1 from acs”)</li>
+<li>sqldf(“select unique AGEP from acs”)</li>
+<li>sqldf(“select unique AGEP from acs”)</li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
-<li>Consider the following expression:</li>
+<li>How many characters are in the 10th, 20th, 30th and 100th lines of HTML from <a href="http://biostat.jhsph.edu/~jleek/contact.html">this page</a>. (Hint: the <code>nchar()</code> function in R may be helpful)</li>
 </ol>
-<pre class="r"><code>x &lt;- 5
-y &lt;- if(x &lt; 3) {
-        NA
-} else {
-        10
-}</code></pre>
-<pre><code>What is the value of 'y' after evaluating this expression?</code></pre>
+<pre class="r"><code>Q4data &lt;- readLines('http://biostat.jhsph.edu/~jleek/contact.html')
+c(nchar(Q4data[10]), nchar(Q4data[20]), nchar(Q4data[30]), nchar(Q4data[100]))</code></pre>
+<pre><code>## [1] 45 31  7 25</code></pre>
 <ul>
-<li>3</li>
-<li>NA</li>
-<li>5</li>
-<li><strong>10</strong></li>
+<li>43 99 7 25</li>
+<li><strong>45 31 7 25</strong></li>
+<li>45 31 7 31</li>
+<li>45 92 7 2</li>
+<li>45 0 2 2</li>
+<li>45 31 2 25</li>
+<li>43 99 8 6</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
-<li>Consider the following R function</li>
+<li>Read <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for">this data</a> set into R and report the sum of the numbers in the fourth of the nine columns. (Hint: this is a fixed width file format)</li>
 </ol>
-<pre class="r"><code>h &lt;- function(x, y = NULL, d = 3L) {
-        z &lt;- cbind(x, d)
-        if(!is.null(y))
-                z &lt;- z + y
-        else
-                z &lt;- z + f
-        g &lt;- x + y / z
-        if(d == 3L)
-                return(g)
-        g &lt;- g + 10
-        g
-}</code></pre>
-<pre><code>Which symbol in the above function is a free variable?</code></pre>
+<pre class="r"><code>Q5data &lt;- read.fwf(file=url(&quot;https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for&quot;), 
+                   widths = c(10, 9, 9, 4, 5, 8, 5, 8, 5), skip = 4)
+sum(Q5data$V4)</code></pre>
+<pre><code>## [1] 32426.7</code></pre>
 <ul>
-<li><strong>f</strong></li>
-<li>z</li>
-<li>d</li>
-<li>L</li>
-<li>g</li>
-</ul>
-<ol start="6" style="list-style-type: decimal">
-<li>What is an environment in R?</li>
-</ol>
-<ul>
-<li><strong>a collection of symbol/value pairs</strong></li>
-<li>a list whose elements are all functions</li>
-<li>an R package that only contains data</li>
-<li>a special type of function</li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li>The R language uses what type of scoping rule for resolving free variables?</li>
-</ol>
-<ul>
-<li>global scoping</li>
-<li><strong>lexical scoping</strong></li>
-<li>dynamic scoping</li>
-<li>compilation scoping</li>
-</ul>
-<ol start="8" style="list-style-type: decimal">
-<li>How are free variables in R functions resolved?</li>
-</ol>
-<ul>
-<li>The values of free variables are searched for in the environment in which the function was called</li>
-<li>The values of free variables are searched for in the global environment</li>
-<li>The values of free variables are searched for in the working directory</li>
-<li><strong>The values of free variables are searched for in the environment in which the function was defined</strong></li>
-</ul>
-<ol start="9" style="list-style-type: decimal">
-<li>What is one of the consequences of the scoping rules used in R?</li>
-</ol>
-<ul>
-<li>Functions cannot be nested</li>
-<li>All objects can be stored on the disk</li>
-<li><strong>All objects must be stored in memory</strong></li>
-<li>R objects cannot be larger than 100 MB</li>
-</ul>
-<ol start="10" style="list-style-type: decimal">
-<li>In R, what is the parent frame?</li>
-</ol>
-<ul>
-<li>It is the environment in which a function was defined</li>
-<li><strong>It is the environment in which a function was called</strong></li>
-<li>It is always the global environment</li>
-<li>It is the package search list</li>
+<li>101.83</li>
+<li>222243.1</li>
+<li>35824.9</li>
+<li>28893.3</li>
+<li><strong>32426.7</strong></li>
+<li>36.5</li>
 </ul>
 
 

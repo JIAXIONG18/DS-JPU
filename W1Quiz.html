@@ -123,268 +123,68 @@ $(document).ready(function () {
 
 
 <ol style="list-style-type: decimal">
-<li>R was developed by statisticians working at</li>
+<li>The American Community Survey distributes downloadable data about United States communities. Download the 2006 microdata survey about housing for the state of Idaho using download.file() from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv">here</a> and d the data into R. The code book, describing the variable names is <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FPUMSDataDict06.pdf">here</a>. How many properties are worth $1,000,000 or more?</li>
 </ol>
-<ul>
-<li>Johns Hopkins University</li>
-<li>Microsoft</li>
-<li>Harvard University</li>
-<li><strong>The University of Auckland</strong></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>The definition of free software consists of four freedoms (freedoms 0 through 3). Which of the following is NOT one of the freedoms that are part of the definition? Select all that apply.</li>
-</ol>
-<ul>
-<li><strong>The freedom to sell the software for any price.</strong></li>
-<li>The freedom to redistribute copies so you can help your neighbor.</li>
-<li>The freedom to run the program, for any purpose.</li>
-<li><strong>The freedom to prevent users from using the software for undesirable purposes.</strong></li>
-<li>The freedom to improve the program, and release your improvements to the public, so that the whole community benefits.</li>
-<li><strong>The freedom to restrict access to the source code for the software.</strong></li>
-<li>The freedom to study how the program works, and adapt it to your needs.</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>In R the following are all atomic data types EXCEPT: (Select all that apply)</li>
-</ol>
-<ul>
-<li><strong>data frame</strong></li>
-<li><strong>matrix</strong></li>
-<li>complex</li>
-<li>numeric</li>
-<li>character</li>
-<li><strong>table</strong></li>
-<li>logical</li>
-<li><strong>array</strong></li>
-<li>integer</li>
-<li><strong>list</strong></li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
-<li>If I execute the expression <code>x &lt;- 4</code> in R, what is the class of the object x as determined by the <code>class()</code> function?</li>
-</ol>
-<pre class="r"><code>x &lt;- 4
-class(x)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<ul>
-<li>matrix</li>
-<li>real</li>
-<li>complex</li>
-<li>vector</li>
-<li><strong>numeric</strong></li>
-<li>integer</li>
-<li>list</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li>What is the class of the object defined by the expression <code>x &lt;- c(4, &quot;a&quot;, TRUE)</code>?</li>
-</ol>
-<pre class="r"><code>x &lt;- c(4, &quot;a&quot;, TRUE)
-class(x)</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<ul>
-<li>logical</li>
-<li>integer</li>
-<li><strong>character</strong></li>
-<li>numeric</li>
-<li>mixed</li>
-</ul>
-<ol start="6" style="list-style-type: decimal">
-<li>If I have two vectors <code>x &lt;- c(1, 3, 5)</code> and <code>y &lt;- c(3, 2, 10)</code>, what is produced by the expression <code>cbind(x, y)</code>?</li>
-</ol>
-<pre class="r"><code>x &lt;- c(1, 3, 5)
-y &lt;- c(3, 2, 10)
-cbind(x, y)</code></pre>
-<pre><code>##      x  y
-## [1,] 1  3
-## [2,] 3  2
-## [3,] 5 10</code></pre>
-<ul>
-<li>a 2 by 2 matrix</li>
-<li>a 3 by 3 matrix</li>
-<li><strong>a matrix with 2 columns and 3 rows</strong></li>
-<li>a 2 by 3 matrix</li>
-<li>a vector of length 2</li>
-<li>a vector of length 3</li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li>A key property of vectors in R is that</li>
-</ol>
-<ul>
-<li>a vector cannot have attributes like dimensions</li>
-<li>the length of a vecotr must be less than 32,768</li>
-<li>elements of a vector can only be character or numeric</li>
-<li>elements of a vector can be of different classes</li>
-<li><strong>elements of a vector all must be of the same class</strong></li>
-</ul>
-<ol start="8" style="list-style-type: decimal">
-<li>Suppose I have a list defined as <code>x &lt;- list(2, &quot;a&quot;, &quot;b&quot;, TRUE)</code>. What does <code>x[[2]]</code> give me? Select all that apply.</li>
-</ol>
-<pre class="r"><code>x &lt;- list(2, &quot;a&quot;, &quot;b&quot;, TRUE)
-x[[2]]</code></pre>
-<pre><code>## [1] &quot;a&quot;</code></pre>
-<ul>
-<li>a list containing the number 2 and the letter “a”.</li>
-<li><strong>a character vector of length 1.</strong></li>
-<li><strong>a character vector containing the letter “a”.</strong></li>
-<li>a character vector with the elements “a” and “b”.</li>
-<li>a list containing character vector with the letter “a”.</li>
-</ul>
-<ol start="9" style="list-style-type: decimal">
-<li>Suppose I have a vector <code>x &lt;- 1:4</code> and a vector <code>y &lt;- 2</code>. What is produced by the expression <code>x + y</code>?</li>
-</ol>
-<pre class="r"><code>x &lt;- 1:4
-y &lt;- 2
-x + y</code></pre>
-<pre><code>## [1] 3 4 5 6</code></pre>
-<ul>
-<li>a numeric vector with elements 3, 2, 3, 6.</li>
-<li>an integer vector with elements 3, 2, 3, 6.</li>
-<li>an integer vector with elements 3, 2, 3, 4.</li>
-<li><strong>a numeric vector with elements 3, 4, 5, 6.</strong></li>
-</ul>
-<ol start="10" style="list-style-type: decimal">
-<li>Suppose I have a vector <code>x &lt;- c(3, 5, 1, 10, 12, 6)</code> and I want to set all elements of this vector that are less than 6 to be equal to zero. What R code achieves this? Select all that apply.</li>
-</ol>
-<pre class="r"><code>x &lt;- c(3, 5, 1, 10, 12, 6)
-x[x %in% 1:5] &lt;- 0
-x</code></pre>
-<pre><code>## [1]  0  0  0 10 12  6</code></pre>
-<pre class="r"><code>x[x &lt; 6] &lt;- 0
-x</code></pre>
-<pre><code>## [1]  0  0  0 10 12  6</code></pre>
-<pre class="r"><code>x[x &lt;= 5] &lt;- 0
-x</code></pre>
-<pre><code>## [1]  0  0  0 10 12  6</code></pre>
-<ul>
-<li><code>x[x &gt; 6] &lt;- 0</code></li>
-<li><code>x[x == 0] &lt;- 6</code></li>
-<li><code>x[x == 6] &lt;- 0</code></li>
-<li><code>x[x &gt;= 6] &lt;- 0</code></li>
-<li><code>x[x &lt; 6] == 0</code></li>
-<li><strong><code>x[x %in% 1:5] &lt;- 0</code></strong></li>
-<li><strong><code>x[x &lt; 6] &lt;- 0</code></strong></li>
-<li><strong><code>x[x &lt;= 5] &lt;- 0</code></strong></li>
-<li><code>x[x &gt; 0] &lt;- 6</code></li>
-<li><code>x[x == 0] &lt; 6</code></li>
-<li><code>x[x != 6] &lt;- 0</code></li>
-</ul>
-<ol start="11" style="list-style-type: decimal">
-<li>Use the Week 1 Quiz Data Set to answer questions 11-20. In the dataset provided for this Quiz, what are the column names of the dataset?</li>
-</ol>
-<pre class="r"><code>raw &lt;- read.csv('hw1_data.csv')
-colnames(raw)</code></pre>
-<pre><code>## [1] &quot;Ozone&quot;   &quot;Solar.R&quot; &quot;Wind&quot;    &quot;Temp&quot;    &quot;Month&quot;   &quot;Day&quot;</code></pre>
-<ul>
-<li><strong>Ozone, Solar.R, Wind, Temp, Month, Day</strong></li>
-<li>Month, Day, Temp, Wind</li>
-<li>Ozone, Solar.R, Wind</li>
-<li>1, 2, 3, 4, 5, 6</li>
-</ul>
-<ol start="12" style="list-style-type: decimal">
-<li>Extract the first 2 rows of the data frame and print them to the console. What does the output look like?</li>
-</ol>
-<pre class="r"><code>raw[1:2, ]</code></pre>
-<pre><code>##   Ozone Solar.R Wind Temp Month Day
-## 1    41     190  7.4   67     5   1
-## 2    36     118  8.0   72     5   2</code></pre>
-<ul>
-<li><strong>1 Ozone Solar.R Wind Temp Month Day<br />
-2 1 41 190 7.4 67 5 1<br />
-3 2 36 118 8.0 72 5 2</strong></li>
-<li>1 Ozone Solar.R Wind Temp Month Day<br />
-2 1 7 NA 6.9 74 5 11<br />
-3 2 35 274 10.3 82 7 17</li>
-<li>1 Ozone Solar.R Wind Temp Month Day<br />
-2 1 18 224 13.8 67 9 17<br />
-3 2 NA 258 9.7 81 7 22</li>
-<li>1 Ozone Solar.R Wind Temp Month Day<br />
-2 1 9 24 10.9 71 9 14<br />
-3 2 18 131 8.0 76 9 29</li>
-</ul>
-<ol start="13" style="list-style-type: decimal">
-<li>How many observations (i.e. rows) are in this data frame?</li>
-</ol>
-<pre class="r"><code>nrow(raw)</code></pre>
-<pre><code>## [1] 153</code></pre>
-<ul>
-<li>45</li>
-<li>129</li>
-<li><strong>153</strong></li>
-<li>160</li>
-</ul>
-<ol start="14" style="list-style-type: decimal">
-<li>Extract the last 2 rows of the data frame and print them to the console. What does the output look like?</li>
-</ol>
-<pre class="r"><code>raw[152:153, ]</code></pre>
-<pre><code>##     Ozone Solar.R Wind Temp Month Day
-## 152    18     131  8.0   76     9  29
-## 153    20     223 11.5   68     9  30</code></pre>
-<ol start="15" style="list-style-type: decimal">
-<li>What is the value of Ozone in the 47th row?</li>
-</ol>
-<pre class="r"><code>raw$Ozone[47]</code></pre>
-<pre><code>## [1] 21</code></pre>
-<ul>
-<li>18</li>
-<li>63</li>
-<li><strong>21</strong></li>
-<li>34</li>
-</ul>
-<ol start="16" style="list-style-type: decimal">
-<li>How many missing values are in the Ozone column of this data frame?</li>
-</ol>
-<pre class="r"><code>table(is.na(raw$Ozone))</code></pre>
+<pre class="r"><code>download.file(url = 'https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv',
+              destfile = paste0(getwd(), '/quiz1_data1.csv'),
+              method = 'curl', quiet = T)
+raw &lt;- read.csv('quiz1_data1.csv')
+#VAL: property value
+#24: 1000000+
+table(raw$VAL == 24)</code></pre>
 <pre><code>## 
 ## FALSE  TRUE 
-##   116    37</code></pre>
-<ul>
-<li>43</li>
-<li><strong>37</strong></li>
-<li>78</li>
-<li>9</li>
-</ul>
-<ol start="17" style="list-style-type: decimal">
-<li>What is the mean of the Ozone column in this dataset? Exclude missing values (coded as NA) from this calculation.</li>
+##  4367    53</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use the data you loaded from Question 1. Consider the variable FES in the code book. Which of the “tidy data” principles does this variable violate?</li>
 </ol>
-<pre class="r"><code>mean(raw$Ozone, na.rm = T)</code></pre>
-<pre><code>## [1] 42.12931</code></pre>
 <ul>
-<li>31.5</li>
-<li>18.0</li>
-<li>53.2</li>
-<li><strong>42.1</strong></li>
+<li>Each tidy data table contains information about only one type of observation</li>
+<li>Tidy data has one observation per row.</li>
+<li><strong>Tidy data has one variable per column.</strong></li>
+<li>Each variable in a tidy data set has been transformed to be interpretable.</li>
 </ul>
-<ol start="18" style="list-style-type: decimal">
-<li>Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90. What is the mean of Solar.R in this subset?</li>
+<ol start="3" style="list-style-type: decimal">
+<li>Download the Excel spreadsheet on Natural Gas Aquisition Program <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx">here</a>. Read rows 18-23 and columns 7-15 into R and assign the result to a variable called <code>dat</code>. What is the value of <code>sum(dat$Zip*dat$Ext,na.rm=T)</code></li>
 </ol>
-<pre class="r"><code>mean(subset(raw, Ozone &gt; 31 &amp; Temp &gt; 90)$Solar.R)</code></pre>
-<pre><code>## [1] 212.8</code></pre>
-<ul>
-<li><strong>212.8</strong></li>
-<li>185.9</li>
-<li>334.0</li>
-<li>205.0</li>
-</ul>
-<ol start="19" style="list-style-type: decimal">
-<li>What is the mean of “Temp” when “Month” is equal to 6?</li>
+<pre class="r"><code>download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FDATA.gov_NGAP.xlsx', 
+              destfile = paste0(getwd(), '/quiz1_data2.xlsx'), 
+              method = 'curl', quiet = T)
+
+library(openxlsx)
+dat &lt;- read.xlsx('quiz1_data2.csv', sheet = 1,rows = 18:23, cols = 7:15)
+sum(dat$Zip*dat$Ext,na.rm=T)</code></pre>
+<pre><code>## [1] 36534720</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Read the XML data on Baltimore restaurants from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml">here</a>. How many restaurants have zipcode 21231?</li>
 </ol>
-<pre class="r"><code>mean(raw$Temp[raw$Month == 6], na.rm = T)</code></pre>
-<pre><code>## [1] 79.1</code></pre>
-<ul>
-<li>90.2</li>
-<li>85.6</li>
-<li><strong>79.1</strong></li>
-<li>75.3</li>
-</ul>
-<ol start="20" style="list-style-type: decimal">
-<li>What was the maximum ozone value in the month of May (i.e. Month is equal to 5)?</li>
+<pre class="r"><code>library(XML)
+download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml', 
+              destfile = paste0(getwd(), '/quiz1_data3.xml'), 
+              method = 'curl', quiet = T)
+  #can't use xmlTreeParse directly b/c this is from 'https' (not supported by the package anymore!)
+Q4data &lt;- xmlTreeParse('quiz1_data3.xml', useInternalNodes = T)
+Q4rootNode &lt;- xmlRoot(Q4data)
+  #wrapper element for the entire document
+  #to gain access to the document
+length(Q4rootNode[xpathSApply(Q4rootNode, '//zipcode', xmlValue) == 21231])</code></pre>
+<pre><code>## [1] 127</code></pre>
+<pre class="r"><code>  #xpathSApply --&gt; extract the values that have the tags 'zipcode'
+  #find how many zipcodes are 21231</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>The American Community Survey distributes downloadable data about United States communities. Download the 2006 microdata survey about housing for the state of Idaho using download.file() from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv">here</a>. Using the <code>fread()</code> command load the data into an R object <code>DT</code>.</li>
 </ol>
-<pre class="r"><code>max(raw$Ozone[raw$Month == 5], na.rm = T)</code></pre>
-<pre><code>## [1] 115</code></pre>
-<ul>
-<li>18</li>
-<li>97</li>
-<li>100</li>
-<li><strong>115</strong></li>
-</ul>
+<p>The following are ways to calculate the average value of the variable <code>pwgtp15</code> broken down by sex. Using the data.table package, which will deliver the fastest user time?</p>
+<pre class="r"><code>download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv', 
+              destfile = paste0(getwd(), '/quiz1_data4.csv'), 
+              method = 'curl', quiet = T)
+library(data.table)
+DT &lt;- fread(input = 'quiz1_data4.csv', sep = ',')
+DT[,mean(pwgtp15),by=SEX]</code></pre>
+<pre><code>##    SEX       V1
+## 1:   1 99.80667
+## 2:   2 96.66534</code></pre>
+<pre class="r"><code>  #only this uses DT</code></pre>
 
 
 

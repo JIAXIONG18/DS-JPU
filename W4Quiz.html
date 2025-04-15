@@ -123,105 +123,91 @@ $(document).ready(function () {
 
 
 <ol style="list-style-type: decimal">
-<li>What is produced at the end of this snippet of R code?</li>
+<li>The American Community Survey distributes downloadable data about United States communities. Download the 2006 microdata survey about housing for the state of Idaho using download.file() from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv">here</a> and load the data into R. The code book, describing the variable names is <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FPUMSDataDict06.pdf">here</a>.<br />
+Apply <code>strsplit()</code> to split all the names of the data frame on the characters “wgtp”. What is the value of the 123 element of the resulting list?</li>
 </ol>
-<pre class="r"><code>set.seed(1)
-rpois(5, 2)</code></pre>
-<pre><code>## [1] 1 1 2 4 1</code></pre>
+<pre class="r"><code>download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv', 
+              destfile = './quiz4_data1.csv', 
+              method = 'curl', quiet = T)
+Q1data &lt;- read.csv('quiz4_data1.csv')
+strsplit(names(Q1data), split = 'wgtp')[123]</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;&quot;   &quot;15&quot;</code></pre>
 <ul>
-<li><strong>A vector with the numbers 1, 1, 2, 4, 1</strong></li>
-<li>It is impossible to tell because the result is random</li>
-<li>A vector with the numbers 3.3, 2.5, 0.5, 1.1, 1.7</li>
-<li>A vector with the numbers 1, 4, 1, 1, 5</li>
+<li><strong>“” “15”</strong></li>
+<li>“wgt” “15”</li>
+<li>“wgtp”</li>
+<li>“wgtp” “15”</li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li>What R function can be used to generate standard Normal random variables?</li>
+<li>Load the Gross Domestic Product data for the 190 ranked countries in <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv">this data set</a>. Remove the commas from the GDP numbers in millions of dollars and average them. What is the average?</li>
 </ol>
+<pre class="r"><code>download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv',
+              destfile = './quiz4_data2.csv', method = 'curl', quiet = T)
+Q2data &lt;- read.csv('quiz4_data2.csv', skip = 4, nrows = 190)
+mean(as.numeric(gsub(pattern = ',', replacement = '', x=Q2data$X.4)))</code></pre>
+<pre><code>## [1] 377652.4</code></pre>
 <ul>
-<li><strong>rnorm</strong></li>
-<li>pnorm</li>
-<li>dnorm</li>
-<li>qnorm</li>
+<li>379596.5</li>
+<li><strong>377652.4</strong></li>
+<li>387854.4</li>
+<li>381668.9</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>When simulating data, why is using the set.seed() function important? Select all that apply.</li>
+<li>In the data set from Question 2 what is a regular expression that would allow you to count the number of countries whose name begins with “United”? Assume that the variable with the country names in it is named countryNames. How many countries begin with United?</li>
 </ol>
+<pre class="r"><code>Q3data &lt;- Q2data[c(-99, -186), c(1, 2, 4, 5)]
+colnames(Q3data) &lt;- c('Code', 'Rank', 'countryNames', 'GDP')
+grep(pattern = '^United', x = Q3data$countryNames)</code></pre>
+<pre><code>## [1]  1  6 32</code></pre>
 <ul>
-<li>It can be used to generate non-uniform random numbers.</li>
-<li>It ensures that the sequences of random numbers is truly random.</li>
-<li><strong>It can be used to specify which random number generating algorithm R should use, ensuring consistency and reproducibility.</strong></li>
-<li>It ensures that the random numbers generated are within specified boundaris.</li>
+<li>grep(“United$”,countryNames), 3</li>
+<li>grep(“*United“,countryNames), 2</li>
+<li><strong>grep(“^United”,countryNames), 3</strong></li>
+<li>grep(“^United”,countryNames), 4</li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
-<li>Which function can be used to evaluate the inverse cumulative distribution function for the Poisson distribution?</li>
+<li>Load the Gross Domestic Product data for the 190 ranked countries in <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv">this data set</a><br />
+Load the educational data from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv">this data set</a> Match the data based on the country shortcode. Of the countries for which the end of the fiscal year is available, how many end in June?</li>
 </ol>
+<pre class="r"><code>download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv',
+              destfile = './quiz4_data3_gdp.csv', method = 'curl', quiet = T)
+download.file('https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv',
+              destfile = './quiz4_data3_edu', method = 'curl', quiet = T)
+Q4gdpData &lt;- read.csv('quiz4_data3_gdp.csv', skip = 4, nrows = 190)
+Q4gdpData &lt;- Q4gdpData[, c(1, 2, 4, 5)]
+colnames(Q4gdpData) &lt;- c('Code', 'Rank', 'countryNames', 'GDP')
+Q4eduData &lt;- read.csv('quiz4_data3_edu')
+Q4eduData &lt;- Q4eduData[, c(1, 10)]
+colnames(Q4eduData) &lt;- c('Code', 'Notes')
+Q4mergeData &lt;- merge(Q4gdpData, Q4eduData, by = 'Code')
+length(grep('Fiscal year end: June', Q4mergeData$Notes))</code></pre>
+<pre><code>## [1] 13</code></pre>
 <ul>
-<li>dpois</li>
-<li>ppois</li>
-<li><strong>qpois</strong> -rpois</li>
+<li>15</li>
+<li><strong>13</strong></li>
+<li>16</li>
+<li>7</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
-<li>What does the following code do?</li>
+<li>You can use the <a href="http://www.quantmod.com/">quantmod</a> package to get historical stock prices for publicly traded companies on the NASDAQ and NYSE. Use the following code to download data on Amazon’s stock price and get the times the data was sampled. How many values were collected in 2012? How many values were collected on Mondays in 2012?</li>
 </ol>
-<pre class="r"><code>set.seed(10)
-x &lt;- rep(0:1, each = 5)
-e &lt;- rnorm(10, 0, 20)
-y &lt;- 0.5 + 2 * x + e</code></pre>
+<pre class="r"><code>library(quantmod)
+amzn = getSymbols(&quot;AMZN&quot;,auto.assign=FALSE)
+sampleTimes = index(amzn)</code></pre>
+<pre class="r"><code>table(grepl('2012', strsplit(as.character(sampleTimes), split = '-')))</code></pre>
+<pre><code>## 
+## FALSE  TRUE 
+##  2571   250</code></pre>
+<pre class="r"><code>Q5data &lt;- as.data.frame(sampleTimes)
+library(data.table)
+length(Q5data[(year(Q5data$sampleTimes) == 2012) &amp; (weekdays(Q5data$sampleTimes) == 'Monday'), ])</code></pre>
+<pre><code>## [1] 47</code></pre>
 <ul>
-<li>Generate random exponentially distributed data</li>
-<li><strong>Generate data from a Normal linear model</strong></li>
-<li>Generate uniformly distributed random data</li>
-<li>Generate data from a Poisson generalized linear model</li>
-</ul>
-<ol start="6" style="list-style-type: decimal">
-<li>What R function can be used to generate Binomial random variables?</li>
-</ol>
-<ul>
-<li>pbinom</li>
-<li>qbinom</li>
-<li>dbinom</li>
-<li><strong>rbinom</strong></li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li>What aspect of the R runtime does the profiler keep track of when an R expression is evaluated?</li>
-</ol>
-<ul>
-<li>the package search list</li>
-<li><strong>the function call stack</strong></li>
-<li>the working directory</li>
-<li>the global environment</li>
-</ul>
-<ol start="8" style="list-style-type: decimal">
-<li>Consider the following R code</li>
-</ol>
-<pre class="r"><code>library(datasets)
-Rprof()
-fit &lt;- lm(y ~ x1 + x2)
-Rprof(NULL)</code></pre>
-<p>(Assume that y, x1, and x2 are present in the workspace.) Without running the code, what percentage of the run time is spent in the ‘lm’ function, based on the ‘by.total’ method of normalization shown in ‘summaryRprof()’?</p>
-<ul>
-<li>50%</li>
-<li>It is not possible to tell</li>
-<li><strong>100%</strong></li>
-<li>23%</li>
-</ul>
-<ol start="9" style="list-style-type: decimal">
-<li>When using ‘system.time()’, what is the user time?</li>
-</ol>
-<ul>
-<li>It is the time spent by the CPU waiting for other tasks to finish</li>
-<li>It is the “wall-clock” time it takes to evaluate an expression</li>
-<li><strong>It is the time spent by the CPU evaluating an expression</strong></li>
-<li>It is a measure of network latency</li>
-</ul>
-<ol start="10" style="list-style-type: decimal">
-<li>If a computer has more than one available processor and R is able to take advantage of that, then which of the following is true when using ‘system.time()’?</li>
-</ol>
-<ul>
-<li><strong>elapsed time may be smaller than user time</strong></li>
-<li>user time is always smaller than elapsed time</li>
-<li>user time is 0</li>
-<li>elapsed time is 0</li>
+<li>252, 50</li>
+<li><strong>250, 47</strong></li>
+<li>251, 47</li>
+<li>252, 47</li>
 </ul>
 
 
